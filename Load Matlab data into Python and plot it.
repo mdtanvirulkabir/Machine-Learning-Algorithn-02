@@ -1,0 +1,9 @@
+from scipy.io import loadmat
+import matplotlib.pyplot as plt
+
+
+mat = loadmat("data/twoClassData.mat")
+X = mat["X"]
+y = mat["y"].ravel()
+plt.plot(X[:, 0], X[:, 1], 'bo', X[y == 0, 0], X[y == 0, 1], 'ro')
+plt.show()
