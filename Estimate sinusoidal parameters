@@ -1,0 +1,61 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+x = np.zeros(100)
+for i in range(40):
+    w = np.sqrt(0.3)*np.random.randn(100)
+    for n in range(100):
+        x[n] = math.sin(2*math.pi*0.015*n) + w[n]
+    if i == 10:
+        test_signal = plt.figure(figsize = (10, 10))
+        plt.plot(x)
+        plt.title("100-sample long synthetic test signal_fig_a")
+        plt.show()
+        test_signal.savefig('Test Signal Ex01 Problem05_fig_a', bbox_inches = 'tight', dpi=150)
+    elif i == 20:
+        test_signal = plt.figure(figsize=(10, 10))
+        plt.plot(x)
+        plt.title("100-sample long synthetic test signal_fig_b")
+        plt.show()
+        test_signal.savefig('Test Signal Ex01 Problem05_fig_b', bbox_inches='tight', dpi=150)
+    elif i == 30:
+        test_signal = plt.figure(figsize=(10, 10))
+        plt.plot(x)
+        plt.title("100-sample long synthetic test signal_fig_c")
+        plt.show()
+        test_signal.savefig('Test Signal Ex01 Problem05_fig_c', bbox_inches='tight', dpi=150)
+    scores = []
+    frequencies = []
+    for f in np.linspace(0, 0.5, 1000):
+    # Create vector e. Assume data is in x.
+        num = np.arange(100)
+        z = -2*math.pi*1j*f*num  # <compute -2*pi*i*f*n. Imaginary unit is 1j>
+        e = np.exp(z)
+        score = np.dot(x, e)  # <compute abs of dot product of x and e>
+        scores.append(score)
+        frequencies.append(f)
+
+    x_est = np.zeros(100)
+    fHat = frequencies[np.argmax(scores)]
+    for n in range(100):
+        x_est[n] = np.sin(2*math.pi*fHat*n) + w[n]
+    print('F_hat value for', i, 'th is', fHat)
+    if i == 10:
+        plot_est = plt.figure(figsize=(10, 10))
+        plt.plot(x_est)
+        plt.title("Estimation_fig_a")
+        plot_est.savefig('Estimation_plot_Ex01_Problem05_fig_a',bbox_inches = 'tight', dpi=150)
+        plt.show()
+    elif i == 20:
+        plot_est = plt.figure(figsize=(10, 10))
+        plt.plot(x_est)
+        plt.title("Estimation_fig_b")
+        plot_est.savefig('Estimation_plot_Ex01_Problem05_fig_b', bbox_inches='tight', dpi=150)
+        plt.show()
+    elif i == 30:
+        plot_est = plt.figure(figsize=(10, 10))
+        plt.plot(x_est)
+        plt.title("Estimation_fig_c")
+        plot_est.savefig('Estimation_plot_Ex01_Problem05_fig_c', bbox_inches='tight', dpi=150)
+        plt.show()
